@@ -9,10 +9,14 @@ Please feel free to browse through them. As this is a working version, any const
 		- load map with JS
 		- customize google map marker
 		- change google map language
+
+	* Style
+		- sass functions to template and standardize
 	
 	* Youtube API
-		- on hover start play, and on hover leave stop playing
-		
+		- on click, create player, pink bg
+		- on hover create player, lightblue bg
+
 	
 ===================================================================================
 Time log

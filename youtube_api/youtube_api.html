@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Youtube API</title>
+	<style>
+		.player {
+			height: 300px;
+			width: 300px;
+			background-color: pink;
+			margin-bottom: 5px;
+		}
+	</style>
+	<script src="../js_library/jquery-3.2.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+            <div class="player" id="iframe-1" data-ytb-id="7KB-UnyebnU"></div>
+            <div class="player" id="iframe-2" data-ytb-id="QZZZz4CN62E"></div>
+            <div class="player" id="iframe-3" data-ytb-id="BF4nJJ4lfOA"></div>
+            <div class="player" id="iframe-4" data-ytb-id="McZacFGzv_8"></div>
+            <div class="player" id="iframe-5" data-ytb-id="WhCSgokBziQ"></div>
+            <div class="player" id="iframe-6" data-ytb-id="IeivjhJcvF4"></div>
+            <div class="player" id="iframe-7" data-ytb-id="3zfjnyMUWgw"></div>
+            <div class="player" id="iframe-8" data-ytb-id="pqTm0KXUS0w"></div>
+            <div class="player" id="iframe-9" data-ytb-id="_5NGK0gtsZo"></div>
+            <div class="player" id="iframe-10" data-ytb-id="i7svvffBA4c"></div>
+            <div class="player" id="iframe-11" data-ytb-id="FQZntE7jvDg"></div>
+            <div class="player" id="iframe-12" data-ytb-id="tXeCPUDvcYc"></div>
+            <div class="player" id="iframe-13" data-ytb-id="E5j_JevlTaA"></div>
+            <div class="player" id="iframe-14" data-ytb-id="g-NqKMVqrIc"></div>
+            <div class="player" id="iframe-15" data-ytb-id="TUqthvzKKdA"></div>
+            <div class="player" id="iframe-17" data-ytb-id="q6to4hdhfTA"></div>
+            <div class="player" id="iframe-18" data-ytb-id="yUjX0m3teIM"></div>
+            <div class="player" id="iframe-19" data-ytb-id="ieyJMwzXNdY"></div>
+            <div class="player" id="iframe-20" data-ytb-id="5guYtzP-VDE"></div>
+            <div class="player" id="iframe-21" data-ytb-id="uAWkNzhWmLs"></div>
+            <div class="player" id="iframe-22" data-ytb-id="ntxj58F8uDQ"></div>
+            <div class="player" id="iframe-23" data-ytb-id="vpMZs2bzMjc"></div>
+            <div class="player" id="iframe-24" data-ytb-id="FXT3a6HpLR4"></div>
+            <div class="player" id="iframe-25" data-ytb-id="AFsDxELNnpk"></div>
+	<script>
+		var players = new Array(); 
+		var isYoubeApiReady =false;
+
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		function onYouTubeIframeAPIReady() {
+			isYoubeApiReady = true;
+		 	console.log('youtube api ready');
+		};
+
+		function create_YT_Player(iframeId, youtubeid) {
+			// console.log("new create player called")
+			return new YT.Player(iframeId, {
+				videoId: youtubeid,
+				width: 1000,
+				height: 1000,
+				playerVars: {
+					'autoplay':1,
+					'loop': 1,
+					'playlist': youtubeid,
+					'controls': 0,
+					'showinfo': 0,
+					'rel': 0,
+					'disablekb': 1,
+					'enablejsapi': 1,
+					'fs': 0,
+					'iv_load_policy': 3,
+				},
+				events: { 
+					'onStateChange': onPlayerStateChange 
+				}
+				
+			});
+		};
+
+		function loadYtPlayers() {
+			$('body').on('click', '.player', function() {
+				var iframeId  = $(this).attr('id');
+				var youtubeid = $(this).data('ytb-id');
+				if(!isYoubeApiReady){
+					return;
+				}
+				if(!players[iframeId]){
+					players[iframeId] = create_YT_Player(iframeId, youtubeid);
+				}
+			})
+		};
+
+		function onPlayerStateChange(e) {
+			// console.log(e);
+			if (e.data == YT.PlayerState.PLAYING) {
+		        pauseAllPlayer(e.target.a.id);
+		    }
+		};
+
+		function pauseAllPlayer(currentId){
+			// console.log(players);
+			for(var key in players) {
+				if (key === currentId) { continue; }
+				if(players[key].getPlayerState() === 1) {
+					players[key].pauseVideo();
+				}
+			}
+		};
+
+		$(function() {
+			console.log("ready")
+			loadYtPlayers();
+		})
+
+		// play on hover, pause on hover leave 
+			// var player;
+			// function asdfonou() {
+
+			//  	console.log('youtube api ready');
+
+			// 	var $ = function(id) { return document.getElementById(id); }
+			// 	var $$ = function(tagname) { return document.getElementsByTagName(tagname); }
+			// 	var videos = $$('iframe'), // the iframes elements
+			// 	     players = {}; // an array where we stock each videos youtube instances class
+			// 	for (var i = 0; i < videos.length; i++) // for each iframes
+			// 	{
+			// 	     var currentIframeID = videos[i].id; // we get the iframe ID
+			// 	     players[currentIframeID] = new YT.Player(currentIframeID); // we stock in the array the instance
+			// 	     // note, the key of each array element will be the iframe ID
+
+			// 	     // console.log(currentIframeID,' ',i,' ',players[currentIframeID] , players );
+				     
+			// 	     videos[i].onmouseover = function(e) { // assigning a callback for this event
+			// 		         // var currentHoveredElement = e.target;
+			// 		         var frameID = e.target.id;
+			// 		         // console.log('current :', frameID);
+					         
+			// 		         if (players[frameID] === null) {
+			// 		         	// console.log('no player with id :', frameID);
+			// 		         	return 
+			// 		         }
+			// 		         // console.log('curr player:', players[frameID]);
+			// 		         players[frameID].playVideo();
+			// 	     };
+			// 	     videos[i].onmouseout = function(e) { // assigning a callback for this event
+			// 	         var leaveElement = e.target;
+			// 	         if (leaveElement === null) {
+			// 		         	return 
+			// 	         }
+			// 	         players[leaveElement.id].pauseVideo();
+			// 	     };
+			// 	}
+			    
+			// };
+	</script>
+</body>
+</html>
