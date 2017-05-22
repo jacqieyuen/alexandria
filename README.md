@@ -4,6 +4,15 @@ Inspired by the Library of Alexandria,
 
 Please feel free to browse through them. As this is a working version, any constructive comments are appreciated. 
 
+
+	* Google Map API
+		- load map with JS
+		- customize google map marker
+		- change google map language
+	
+	* Youtube API
+		- on hover start play, and on hover leave stop playing
+		
 	
 ===================================================================================
 Time log

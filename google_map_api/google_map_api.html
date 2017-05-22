@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Google Map Api</title>
+	<style>
+		.map {
+			height: 500px;
+			width: 500px;
+		}
+	</style>
+</head>
+<body>
+	<h3>Map is being displayed using Google Map API</h3>
+	<button class="changeLang" onclick="ChangeGoogleMapsLanguage('en')">ENGLISH MAP</button>
+	<button class="changeLang" onclick="ChangeGoogleMapsLanguage('zhHant')">CHINESE MAP</button>
+	<hr>
+	<div id="map" class="map">
+		
+	</div>
+	<script>
+		var map;
+		function initMap() {
+		  map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 16,
+		    center: new google.maps.LatLng(22.2772905, 114.181626),
+		    mapTypeId: 'roadmap'
+		  });
+
+		  
+
+		  // Create customized markers.
+			  var icons = {
+			    info: {
+			      icon: "./images/map_marker.png"
+			    }
+			  };
+
+			  var features = [
+			    {
+			      position: new google.maps.LatLng(22.2772905, 114.181626),
+			      type: 'info'
+			    }
+			  ];
+			  features.forEach(function(feature) {
+			    var marker = new google.maps.Marker({
+			      position: feature.position,
+			      icon: icons[feature.type].icon,
+			      map: map
+			    });
+			  });
+		}
+
+	// Function to change the language of Google Maps. 
+		// Found this code on Stackoverflow: http://stackoverflow.com/questions/20090711/google-map-dyanamic-language-change
+		function loadScript(lang) {
+		  if (lang === "en") {
+		    var script = document.createElement('script');
+		    script.type = 'text/javascript';
+		    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMAIwXaHMOJskEvTidl04dWiXJkitFpOY&callback=initMap';
+		    script.id = "google-maps-script";
+		    document.body.appendChild(script);
+
+		  } else if (lang === "zhHant") {
+		    var script = document.createElement('script');
+		    script.type = 'text/javascript';
+		    script.src = 'https://maps.googleapis.com/maps/api/js?region=cn&language=zh-CN&key=AIzaSyBMAIwXaHMOJskEvTidl04dWiXJkitFpOY&callback=initMap';
+		    script.id = "google-maps-script";
+		    document.body.appendChild(script);
+		  }
+		}
+
+		function ChangeGoogleMapsLanguage(lang) {
+		  oldScript = document.getElementById("google-maps-script");
+		  oldScript.parentNode.removeChild(oldScript);
+		  delete google.maps;
+		  loadScript(lang);
+		}
+
+		// JQuery version to INIT: 
+			// $( function (){
+			// 	loadScript("zhHant");
+			// })
+		// Vanilla JS to INIT:
+			document.onreadystatechange = function () {
+			    if (document.readyState == "interactive") {
+			       loadScript("zhHant");
+			    }
+			}
+
+	</script>
+	
+	<!-- If loading map regularly use below script tag, however if you want to add language change functionality please comment out this script tag as the function will insert a script tag via js with the language config. To my knowledge, language configuration can only be passed through this script tag, and canont be done by passing a parameter thorugh the function. May be wrong tho... will continue looking for better options. Let me know if you know a better way to change google maps language on a multi-language website -->
+		<!-- <script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASvdcQoFSDQKui7mhhm_ODRPFgoRK_3k0&callback=initMap">
+		</script> -->
+</body>
+</html>
