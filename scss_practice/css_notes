@@ -13,3 +13,25 @@ Possible File Structure
 
 
   What is the SASS naming convention
+
+  Beware of Nesting, ideally do not nest deeper than 3 levels, instead you can indent to make the code more readable
+
+Loops
+
+Maps
+
+Modularization
+  Modularization is the process of breaking down a project into smaller modules. This can be accomplished in Sass using partials.
+
+  Module: http://thesassway.com/intermediate/a-standard-module-definition-for-sass
+    * each module has one function, e.g. button, typography, forms, table
+    * importing a module should never automatically output code. Hence, limits modules to mixins, variable definitions and functions
+    * primary mixin
+    * primary mixin should inherit name of the module
+    * Use default for top level variables
+
+
+ZURB Foundation, front end framework: https://github.com/zurb/foundation-sites
+
+
+
