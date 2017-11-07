@@ -1,0 +1,14 @@
+<button class="btn btn-secondary" (click)="toggleDetails()">
+	<span *ngIf="showDetails; else hideDetails">Hide Details</span>
+	<ng-template #hideDetails>
+		<span>Show Details</span>
+	</ng-template>
+</button>
+<p *ngIf="showDetails">SECRET = I LOVE EGGS</p>
+<hr>
+<p 
+	*ngFor="let click of clicks let i = index" 
+	[ngStyle]="{'background-color' : getBgColor(i)}"
+	[ngClass]="{'white-text':i > 3}">
+	clicked {{i+1}} 
+</p>
