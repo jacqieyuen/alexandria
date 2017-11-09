@@ -6,8 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	navRecipe: boolean = true;
-	onNavigate(data){
-		this.navRecipe = data;
+	oddNumbers: number[] = [];
+	evenNumbers: number[] = [];
+
+	onIntervalFired(data: number){
+		if (data%2===0){
+			this.evenNumbers.push(data);
+		}else{
+			this.oddNumbers.push(data);
+		}
 	}
 }
