@@ -1,0 +1,39 @@
+.wrapper-2 {
+    margin: 40px auto 0;	
+	width:266px; 
+    position:relative;
+    background: pink;
+}
+.wheel-2{
+	width:250px;
+	height:250px;
+	border-radius:50%;	
+	position:relative;
+	/* overflow:hidden; */
+	border:8px solid rgb(245, 114, 114);
+	transform: rotate(0deg);
+}
+.inner-wheel-2 {
+    width:100%;
+	height:100%;
+	background-color: rgb(151, 33, 33);
+	
+	-webkit-transition: all 6s cubic-bezier(0,.99,.44,.99);
+	-moz-transition:    all 6 cubic-bezier(0,.99,.44,.99);
+	-o-transition:      all 6s cubic-bezier(0,.99,.44,.99);
+	-ms-transition:     all 6s cubic-bezier(0,.99,.44,.99);
+	transition:         all 6s cubic-bezier(0,.99,.44,.99);	
+}
+
+.wheel-2 div.sec-2{
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 130px 75px 0;
+	border-color: #19c transparent;
+	transform-origin: 75px 129px;
+	left:50px;
+	top:-4px;	
+	opacity:1;
+}
